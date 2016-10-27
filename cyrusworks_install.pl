@@ -12,6 +12,9 @@
 #Make it obvious what server this is:
 `sudo cp /cyrusworks/source/StaticFiles/motd /etc/motd`;
 
+#Bring the server up to date:
+`apt-get update -y && apt-get upgrade -y`;
+
 #Install everything we need:
 `sudo apt-get install -y nginx ufw fail2ban sudo curl unattended-upgrades wget ntp`;
 
