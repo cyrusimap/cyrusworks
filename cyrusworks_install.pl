@@ -36,7 +36,7 @@
 `sudo service nginx stop`;
 
 #Install & configure docker
-`wget -qO- https://get.docker.com/|sh`;
+`docker version || wget -qO- https://get.docker.com/|sh`;
 `sudo usermod -aG docker cyrusworks`;
 
 my $user_id = `id -u cyrusworks`;
