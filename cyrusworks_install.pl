@@ -69,7 +69,7 @@ foreach my $package ('bouncycastle-api.hpi', 'cloudbees-folder.hpi', 'structs.hp
 	#Download it package if it doesn't exist on the host machine:
 	unless (-e "/cyrusworks/jenkins/plugins/$package") {
 	print "\n ...It doesn't exist locally. Downloading...";
-	`wget https://updates.jenkins-ci.org/latest/$package -P /cyrusworks/jenkins/plugins`
+	`wget https://updates.jenkins-ci.org/latest/$package -P /cyrusworks/jenkins/plugins`;
 	}
 }
 
