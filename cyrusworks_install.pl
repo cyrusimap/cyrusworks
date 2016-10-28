@@ -104,5 +104,9 @@ print "\nRetrying plugins that failed to download...";
 `mkdir /cyrusworks/cyrus-docker`;
 `git clone https://github.com/cyrusimap/cyrus-docker.git /cyrusworks/cyrus-docker/`;
 
+#Build cyrus-docker OS images:
+`cd /cyrusworks/cyrus-docker/; make all run`
+
 print "\n\nThe admin password is : $admin_password \n";
+
 
