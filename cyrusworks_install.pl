@@ -89,5 +89,10 @@ foreach my $package ('bouncycastle-api.hpi', 'cloudbees-folder.hpi', 'structs.hp
 #Start NGINX:
 `sudo nginx -t && sudo service nginx start`;
 
+#Pull cyrus-docker from github:
+`mkdir /cyrusworks/cyrus-docker`;
+`git clone https://github.com/cyrusimap/cyrus-docker.git /cyrusworks/cyrus-docker/`;
+
+
 print "\n\nThe admin password is : $admin_password \n";
 
