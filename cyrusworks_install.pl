@@ -8,6 +8,7 @@
 
 #Kill and remove existing cyrusworks containers and files:
 `sudo docker stop cyrusworks-jenkins && docker rm -f cyrusworks-jenkins`;
+`rm -rf /cyrusworks/jenkins/`;
 
 #Make it obvious what server this is:
 `sudo cp /cyrusworks/source/StaticFiles/motd /etc/motd`;
