@@ -25,7 +25,7 @@
 #Create & setup new user 'cyrusworks'
 `sudo useradd -s /bin/bash -m -d /cyrusworks cyrusworks`;
 `sudo echo "cyrusworks ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers`;
-`su - cyrusworks -c "mkdir -p /cyrusworks/source /cyrusworks/jenkins/plugins"`;
+`su - cyrusworks -c "mkdir -p /cyrusworks/source /cyrusworks/jenkins/plugins /cyrusworks/cwPluginBackup"`;
 `sudo chown -R cyrusworks /cyrusworks/`;
 `git clone https://github.com/FMQA/cyrusworks.git /cyrusworks/source/`;
 
@@ -59,9 +59,10 @@ my $admin_password=`cat /cyrusworks/jenkins/secrets/initialAdminPassword`;
 `sudo echo "2.0" > /cyrusworks/jenkins/jenkins.install.InstallUtil.lastExecVersion`;
 
 
-#Install plugins:
-`sudo cp /cwplugins/*.hpi /cyrusworks/jenkins/plugins/`;
+#Install previously downloaded plugins:
+`sudo cp /cyrusworks/cwPluginBackup/*.hpi /cyrusworks/jenkins/plugins/`;
 
+#Fetch plugins that aren't stored locally
 foreach my $i (0..1) {
 print "$i\n";
 
@@ -79,6 +80,8 @@ sleep 5;
 print "\nRetrying plugins that failed to download...";
 }
 
+#Backup the plugins to speed up reinstalling cyrus.works
+`sudo cp /cyrusworks/jenkins/plugins/*.hpi /cyrusworks/cwPluginBackup/`;
 
 #Copy the Jenkins config.xml in to place:
 `cp /cyrusworks/source/config/jenkins-config.xml /cyrusworks/jenkins/config.xml`;
