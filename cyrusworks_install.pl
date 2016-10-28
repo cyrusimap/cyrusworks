@@ -17,7 +17,7 @@
 `apt-get update -y && apt-get upgrade -y`;
 
 #Install everything we need:
-`sudo apt-get install -y nginx ufw fail2ban sudo curl unattended-upgrades wget ntp`;
+`sudo apt-get install -y nginx ufw fail2ban sudo curl unattended-upgrades wget ntp make`;
 
 #Configure ufw
 `sudo ufw allow 22`; #Allow SSH access
@@ -103,7 +103,6 @@ print "\nRetrying plugins that failed to download...";
 #Pull cyrus-docker from github:
 `mkdir /cyrusworks/cyrus-docker`;
 `git clone https://github.com/cyrusimap/cyrus-docker.git /cyrusworks/cyrus-docker/`;
-
 
 print "\n\nThe admin password is : $admin_password \n";
 
