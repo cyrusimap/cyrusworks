@@ -60,18 +60,25 @@ my $admin_password=`cat /cyrusworks/jenkins/secrets/initialAdminPassword`;
 
 
 #Install plugins:
-`sudo cp /cwplugins/* /cyrusworks/jenkins/plugins/`;
+`sudo cp /cwplugins/*.hpi /cyrusworks/jenkins/plugins/`;
 
-foreach my $package ('bouncycastle-api.hpi', 'cloudbees-folder.hpi', 'structs.hpi', 'junit.hpi', 'antisamy-markup-formatter.hpi', 'pam-auth.hpi', 'windows-slaves.hpi', 'display-url-api.hpi', 'mailer.hpi', 'ldap.hpi', 'token-macro.hpi', 'external-monitor-job.hpi', 'icon-shim.hpi', 'matrix-auth.hpi', 'script-security.hpi', 'matrix-project.hpi', 'build-timeout.hpi', 'credentials.hpi', 'workflow-step-api.hpi', 'plain-credentials.hpi', 'credentials-binding.hpi', 'timestamper.hpi', 'ws-cleanup.hpi', 'ant.hpi', 'gradle.hpi', 'workflow-api.hpi', 'pipeline-milestone-step.hpi', 'workflow-support.hpi', 'pipeline-build-step.hpi', 'jquery-detached.hpi', 'ace-editor.hpi', 'workflow-scm-step.hpi', 'scm-api.hpi', 'workflow-cps.hpi', 'pipeline-input-step.hpi', 'pipeline-stage-step.hpi', 'workflow-job.hpi', 'pipeline-graph-analysis.hpi', 'pipeline-rest-api.hpi', 'handlebars.hpi', 'momentjs.hpi', 'pipeline-stage-view.hpi', 'ssh-credentials.hpi', 'git-client.hpi', 'git-server.hpi', 'workflow-cps-global-lib.hpi', 'branch-api.hpi', 'workflow-multibranch.hpi', 'durable-task.hpi', 'workflow-durable-task-step.hpi', 'workflow-basic-steps.hpi', 'workflow-aggregator.hpi', 'github-api.hpi', 'git.hpi', 'github.hpi', 'github-branch-source.hpi', 'github-organization-folder.hpi', 'mapdb-api.hpi', 'subversion.hpi', 'ssh-slaves.hpi', 'email-ext.hpi', 'javadoc.hpi', 'maven-plugin.hpi', 'dashboard-view.hpi', 'throttle-concurrents.hpi', 'run-condition.hpi', 'conditional-buildstep.hpi', 'parameterized-trigger.hpi', 'emailext-template.hpi', 'greenballs.hpi', 'simple-theme-plugin.hpi', 'AnsiColor.hpi','docker-build-step.hpi','docker-commons.hpi','authentication-tokens.hpi','docker-plugin.hpi') {
+foreach my $i (0..1) {
+print "$i\n";
 
-	print "\nInstalling Jenkins plugin : $package";
+	foreach my $package ('bouncycastle-api.hpi', 'cloudbees-folder.hpi', 'structs.hpi', 'junit.hpi', 'antisamy-markup-formatter.hpi', 'pam-auth.hpi', 'windows-slaves.hpi', 'display-url-api.hpi', 'mailer.hpi', 'ldap.hpi', 'token-macro.hpi', 'external-monitor-job.hpi', 'icon-shim.hpi', 'matrix-auth.hpi', 'script-security.hpi', 'matrix-project.hpi', 'build-timeout.hpi', 'credentials.hpi', 'workflow-step-api.hpi', 'plain-credentials.hpi', 'credentials-binding.hpi', 'timestamper.hpi', 'ws-cleanup.hpi', 'ant.hpi', 'gradle.hpi', 'workflow-api.hpi', 'pipeline-milestone-step.hpi', 'workflow-support.hpi', 'pipeline-build-step.hpi', 'jquery-detached.hpi', 'ace-editor.hpi', 'workflow-scm-step.hpi', 'scm-api.hpi', 'workflow-cps.hpi', 'pipeline-input-step.hpi', 'pipeline-stage-step.hpi', 'workflow-job.hpi', 'pipeline-graph-analysis.hpi', 'pipeline-rest-api.hpi', 'handlebars.hpi', 'momentjs.hpi', 'pipeline-stage-view.hpi', 'ssh-credentials.hpi', 'git-client.hpi', 'git-server.hpi', 'workflow-cps-global-lib.hpi', 'branch-api.hpi', 'workflow-multibranch.hpi', 'durable-task.hpi', 'workflow-durable-task-step.hpi', 'workflow-basic-steps.hpi', 'workflow-aggregator.hpi', 'github-api.hpi', 'git.hpi', 'github.hpi', 'github-branch-source.hpi', 'github-organization-folder.hpi', 'mapdb-api.hpi', 'subversion.hpi', 'ssh-slaves.hpi', 'email-ext.hpi', 'javadoc.hpi', 'maven-plugin.hpi', 'dashboard-view.hpi', 'throttle-concurrents.hpi', 'run-condition.hpi', 'conditional-buildstep.hpi', 'parameterized-trigger.hpi', 'emailext-template.hpi', 'greenballs.hpi', 'simple-theme-plugin.hpi', 'AnsiColor.hpi','docker-build-step.hpi','docker-commons.hpi','authentication-tokens.hpi','docker-plugin.hpi') {
 
-	#Download it package if it doesn't exist on the host machine:
-	unless (-e "/cyrusworks/jenkins/plugins/$package") {
-	print "\n ...It doesn't exist locally. Downloading...";
-	`wget https://updates.jenkins-ci.org/latest/$package -P /cyrusworks/jenkins/plugins`;
+		print "\nInstalling Jenkins plugin : $package";
+
+		#Download it package if it doesn't exist on the host machine:
+		unless (-e "/cyrusworks/jenkins/plugins/$package") {
+		print "\n ...It doesn't exist locally. Downloading...";
+		`wget https://updates.jenkins-ci.org/latest/$package -P /cyrusworks/jenkins/plugins`;
+		}
 	}
+sleep 5;
+print "\nRetrying plugins that failed to download...";
 }
+
 
 #Copy the Jenkins config.xml in to place:
 `cp /cyrusworks/source/config/jenkins-config.xml /cyrusworks/jenkins/config.xml`;
