@@ -105,6 +105,28 @@ print "\nRetrying plugins that failed to download...";
 #Remove operating systems that won't be part of cyrus.works
 `cd /cyrusworks/cyrus-docker; rm -rf bottle harlequin heisenbug maipo precise rawhide santiago sid squeeze tikanga.obsolete trusty tumbleweed twentyone utopic vivid wheezy`;
 
+my @DockerImages = split /\n/, `cd /cyrusworks/cyrus-docker/; egrep -l -i 'FROM ' * | egrep -v "*.sh|*.pl" | sort | uniq`;
+#system("cd /cyrusworks/cyrus-docker/; make all run");
+
+foreach my $DockerImage (@DockerImages)
+{
+	print "\nSetup : $DockerImage";
+	#Create a Jenkins job
+	`mkdir -p /cyrusworks/jenkins/jobs/master-$DockerImage/`;
+
+	#Use the Jenkins template
+	`cp /cyrusworks/source/config/jenkins_job_config.xml /cyrusworks/jenkins/jobs/master-$DockerImage/config.xml`;
+	
+	#Add to 'MonitorTestEnvironments.pl' config file on host
+	`echo $DockerImage >> /cyrusworks/source/MonitorTestEnvironments.conf`;
+
+}
+
+
+#Set file ownership & restart Jenkins:
+`sudo chown -R cyrusworks /cyrusworks/; `;
+`service docker restart`;
+
 
 #Run MonitorTestEnvironments.pl as a cronjob
 `crontab -l | { cat; echo "* * * * * /cyrusworks/source/MonitorTestEnvironments.pl"; } | crontab -`;
