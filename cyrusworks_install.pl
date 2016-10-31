@@ -105,5 +105,10 @@ print "\nRetrying plugins that failed to download...";
 #Remove operating systems that won't be part of cyrus.works
 `cd /cyrusworks/cyrus-docker; rm -rf bottle harlequin heisenbug maipo precise rawhide santiago sid squeeze tikanga.obsolete trusty tumbleweed twentyone utopic vivid wheezy`;
 
+
+#Run MonitorTestEnvironments.pl as a cronjob
+`crontab -l | { cat; echo "* * * * * /cyrusworks/source/MonitorTestEnvironments.pl"; } | crontab -`;
+
 print "\n\nThe admin password is : $admin_password \n";
+
 
