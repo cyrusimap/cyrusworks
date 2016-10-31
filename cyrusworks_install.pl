@@ -105,13 +105,14 @@ print "\nRetrying plugins that failed to download...";
 `git clone https://github.com/cyrusimap/cyrus-docker.git /cyrusworks/cyrus-docker/`;
 
 #Remove operating systems that won't be part of cyrus.works
-`cd /cyrusworks/cyrus-docker; rm -rf vivid utopic twentyone tumbleweed trusty tikanga.obsolete squeeze sid santiago rawhide precise maipo heisenbug harlequin bottle`;
+`cd /cyrusworks/cyrus-docker; rm -rf bottle harlequin heisenbug maipo precise rawhide santiago sid squeeze tikanga.obsolete trusty tumbleweed twentyone utopic vivid wheezy`;
 
 #Build cyrus-docker OS images:
 system("cd /cyrusworks/cyrus-docker/; make all run");
 
-print "\n\nThe admin password is : $admin_password \n";
 
 #For each container, ... #Start the images, link them to cyrusworks-jenkins
-`docker run -e "COMMIT=cyrus-imapd-2.5" -t -i --link cyrusworks-jenkins debian`;
+#`docker run -e "COMMIT=cyrus-imapd-2.5" -t -i --link cyrusworks-jenkins debian`;
+
+print "\n\nThe admin password is : $admin_password \n";
 
