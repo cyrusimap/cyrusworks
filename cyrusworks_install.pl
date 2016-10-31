@@ -108,7 +108,7 @@ print "\nRetrying plugins that failed to download...";
 `cd /cyrusworks/cyrus-docker; rm -rf vivid utopic twentyone tumbleweed trusty tikanga.obsolete squeeze sid santiago rawhide precise maipo heisenbug harlequin bottle`;
 
 #Build cyrus-docker OS images:
-`cd /cyrusworks/cyrus-docker/; make all run`;
+system("cd /cyrusworks/cyrus-docker/; make all run");
 
 print "\n\nThe admin password is : $admin_password \n";
 
