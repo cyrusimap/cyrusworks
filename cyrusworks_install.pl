@@ -77,7 +77,7 @@ print "$i\n";
 		`wget https://updates.jenkins-ci.org/latest/$package -P /cyrusworks/jenkins/plugins`;
 		}
 	}
-sleep 5;
+sleep 1;
 print "\nRetrying plugins that failed to download...";
 }
 
