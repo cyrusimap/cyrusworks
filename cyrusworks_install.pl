@@ -1,10 +1,9 @@
 #!/usr/bin/perl
 # http://cyrus.works install script
 # Author : Chris Davies [ chris@cyrus.works ]
-# This script assumes
+# This script assumes:
 # -Git is installed
 # -This install script has been cloned to /cyrusworks/
-# -This script isn't being run as soon.
 
 #Kill and remove existing cyrusworks containers and files:
 `sudo docker stop cyrusworks-jenkins && docker rm -f cyrusworks-jenkins`;
@@ -59,8 +58,7 @@ my $admin_password=`cat /cyrusworks/jenkins/secrets/initialAdminPassword`;
 #Remove the "getting started" guide screen
 `sudo echo "2.0" > /cyrusworks/jenkins/jenkins.install.InstallUtil.lastExecVersion`;
 
-
-#Install previously downloaded plugins:
+#Install previously downloaded plugins, if they're stored locally:
 `sudo cp /cyrusworks/cwPluginBackup/*.hpi /cyrusworks/jenkins/plugins/`;
 
 #Fetch plugins that aren't stored locally
@@ -81,7 +79,7 @@ sleep 1;
 print "\nRetrying plugins that failed to download...";
 }
 
-#Backup the plugins to speed up reinstalling cyrus.works
+#Store the plugins locally to speed up reinstalling cyrus.works
 `sudo cp /cyrusworks/jenkins/plugins/*.hpi /cyrusworks/cwPluginBackup/`;
 
 #Copy the Jenkins config.xml in to place:
@@ -91,7 +89,7 @@ print "\nRetrying plugins that failed to download...";
 `sudo cp /cyrusworks/source/config/org.codefirst.SimpleThemeDecorator.xml /cyrusworks/jenkins/`;
 `sudo chown -R cyrusworks /cyrusworks/jenkins`;
 
-#Change the permissions of the plugins:
+#Change owner of all cyrusworks files:
 `sudo chown -R cyrusworks /cyrusworks`;
 
 #Restart Jenkins:
@@ -106,13 +104,6 @@ print "\nRetrying plugins that failed to download...";
 
 #Remove operating systems that won't be part of cyrus.works
 `cd /cyrusworks/cyrus-docker; rm -rf bottle harlequin heisenbug maipo precise rawhide santiago sid squeeze tikanga.obsolete trusty tumbleweed twentyone utopic vivid wheezy`;
-
-#Build cyrus-docker OS images:
-system("cd /cyrusworks/cyrus-docker/; make all run");
-
-
-#For each container, ... #Start the images, link them to cyrusworks-jenkins
-#`docker run -e "COMMIT=cyrus-imapd-2.5" -t -i --link cyrusworks-jenkins debian`;
 
 print "\n\nThe admin password is : $admin_password \n";
 
