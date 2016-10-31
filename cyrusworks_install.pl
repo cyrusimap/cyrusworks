@@ -125,7 +125,7 @@ foreach my $DockerImage (@DockerImages)
 
 #Set file ownership & restart Jenkins:
 `sudo chown -R cyrusworks /cyrusworks/; `;
-`service docker restart`;
+`docker restart cyrusworks-jenkins`;
 
 
 #Run MonitorTestEnvironments.pl as a cronjob
