@@ -83,7 +83,7 @@ print "\nRetrying plugins that failed to download...";
 `sudo cp /cyrusworks/jenkins/plugins/*.hpi /cyrusworks/cwPluginBackup/`;
 
 #Copy the Jenkins config.xml in to place:
-`cp /cyrusworks/source/config/jenkins-config.xml /cyrusworks/jenkins/config.xml`;
+`cp /cyrusworks/source/config/jenkins_config.xml /cyrusworks/jenkins/config.xml`;
 
 #Copy the theme in to place:
 `sudo cp /cyrusworks/source/config/org.codefirst.SimpleThemeDecorator.xml /cyrusworks/jenkins/`;
