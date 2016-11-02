@@ -116,11 +116,17 @@ foreach my $DockerImage (@DockerImages)
 
 	#Use the Jenkins template
 	`cp /cyrusworks/source/config/jenkins_job_config.xml /cyrusworks/jenkins/jobs/master-$DockerImage/config.xml`;
-	
-	#Add to 'MonitorTestEnvironments.pl' config file on host
+
+	#Add to 'MonitorTestEnvironments.pl' config file on host.
 	`echo $DockerImage >> /cyrusworks/source/MonitorTestEnvironments.conf`;
 
+	#Build the image:
+	`docker build -t $DockerImage - < $DockerImage`;
+
 }
+
+
+#Generate master job that can trigger all other builds. Github will call this:
 
 
 #Set file ownership & restart Jenkins:
