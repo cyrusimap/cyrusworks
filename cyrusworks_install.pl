@@ -103,7 +103,7 @@ print "\nRetrying plugins that failed to download...";
 `git clone https://github.com/cyrusimap/cyrus-docker.git /cyrusworks/cyrus-docker/`;
 
 #Remove operating systems that won't be part of cyrus.works
-`cd /cyrusworks/cyrus-docker; rm -rf bottle harlequin heisenbug maipo precise rawhide santiago sid squeeze tikanga.obsolete trusty tumbleweed twentyone utopic vivid wheezy`;
+`cd /cyrusworks/cyrus-docker; rm -rf bottle harlequin heisenbug maipo precise rawhide santiago sid squeeze tikanga.obsolete trusty tumbleweed twentyone utopic vivid`;
 
 my @DockerImages = split /\n/, `cd /cyrusworks/cyrus-docker/; egrep -l -i 'FROM ' * | egrep -v "*.sh|*.pl" | sort | uniq`;
 #system("cd /cyrusworks/cyrus-docker/; make all run");
