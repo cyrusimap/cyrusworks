@@ -39,16 +39,13 @@
 `docker version || wget -qO- https://get.docker.com/|sh`;
 `sudo usermod -aG docker cyrusworks`;
 
-my $user_id = `id -u cyrusworks`;
-chomp($user_id);
-
 #Start the docker container:
+chomp($user_id = `id -u cyrusworks`);
 `sudo docker run -p 127.0.0.1:8080:8080 -u $user_id -d --name=cyrusworks-jenkins -v /cyrusworks/jenkins/:/var/jenkins_home/ jenkins`;
 
-#Display the initial randomly generated password:
+#Get the initial randomly generated password:
 print "\nWaiting for the password to be generated...";
 sleep 15; #It takes a few seconds for Jenkins to generate the initial admin password:
-print "\nFetching password...";
 my $admin_password=`cat /cyrusworks/jenkins/secrets/initialAdminPassword`;
 
 #Start services:
@@ -121,7 +118,7 @@ foreach my $DockerImage (@DockerImages)
 	`echo $DockerImage >> /cyrusworks/source/MonitorTestEnvironments.conf`;
 
 	#Build the image:
-	`docker build -t $DockerImage - < $DockerImage`;
+	system("cd /cyrusworks/cyrus-docker/; docker build -t $DockerImage - < $DockerImage`");
 
 }
 
