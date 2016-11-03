@@ -49,6 +49,7 @@ chomp($user_id);
 print "\nWaiting for the password to be generated...";
 sleep 15; #It takes a few seconds for Jenkins to generate the initial admin password:
 print "\nFetching password...";
+unless (-e "/cyrusworks/jenkins/secrets/initialAdminPassword") {die("Jenkins install failed. Please try again.")};
 my $admin_password=`cat /cyrusworks/jenkins/secrets/initialAdminPassword`;
 
 #Start services:
