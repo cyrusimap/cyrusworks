@@ -49,7 +49,6 @@ chomp($user_id);
 print "\nWaiting for the password to be generated...";
 sleep 15; #It takes a few seconds for Jenkins to generate the initial admin password:
 print "\nFetching password...";
-unless (-e "/cyrusworks/jenkins/secrets/initialAdminPassword") {die("Jenkins install failed. Please try again.")};
 my $admin_password=`cat /cyrusworks/jenkins/secrets/initialAdminPassword`;
 
 #Start services:
@@ -134,10 +133,5 @@ foreach my $DockerImage (@DockerImages)
 `sudo chown -R cyrusworks /cyrusworks/; `;
 `docker restart cyrusworks-jenkins`;
 
-
-#Run MonitorTestEnvironments.pl as a cronjob
-`crontab -l | { cat; echo "* * * * * /cyrusworks/source/MonitorTestEnvironments.pl"; } | crontab -`;
-
 print "\n\nThe admin password is : $admin_password \n";
-
-
+unless (-e "/cyrusworks/jenkins/secrets/initialAdminPassword") {print "\n Jenkins initial admin password not written to file. Check docker logs";}
