@@ -39,7 +39,7 @@
 #Start the docker container:
 chomp($user_id = `id -u cyrusworks`);
 print "\nDocker images : `docker ps -a `";
-system("sudo docker run -p 127.0.0.1:8080:8080 -u $user_id -d --name=cyrusworks-jenkins -v /cyrusworks/jenkins/:/var/jenkins_home/ -v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/docker:/usr/bin/docker -v /cyrusworks/jenkins/:/var/jenkins_home/ jenkins");
+system("sudo docker run -p 127.0.0.1:8080:8080 -u $user_id -d --name=cyrusworks-jenkins -v /cyrusworks/jenkins/:/var/jenkins_home/ -v /cyrusworks/source/Scripts/:/cyrusworks/scripts/ -v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/docker:/usr/bin/docker -v /cyrusworks/jenkins/:/var/jenkins_home/ jenkins");
 
 #Get the initial randomly generated password:
 print "\nWaiting for the password to be generated...";
@@ -96,8 +96,7 @@ print "\nRetrying plugins that failed to download...";
 `cd /cyrusworks/cyrus-docker; rm -rf bottle harlequin heisenbug maipo precise rawhide santiago sid squeeze tikanga.obsolete trusty tumbleweed twentyone utopic vivid`;
 
 #Configure Jenkins:
-`docker exec -u root cyrusworks-jenkins bash -c "apt-get update -y && apt-get install -y sudo"`;
-`docker exec -u root cyrusworks-jenkins bash -c "echo \"jenkins ALL=NOPASSWD: ALL\" >> /etc/sudoers"`;
+system("docker exec -u root cyrusworks-jenkins bash -c /cyrusworks/scripts/SetupJenkins.sh");
 
 my @DockerImages = split /\n/, `cd /cyrusworks/cyrus-docker/; egrep -l -i 'FROM ' * | egrep -v "*.sh|*.pl" | sort | uniq`;
 
