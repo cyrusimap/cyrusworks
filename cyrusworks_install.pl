@@ -29,9 +29,6 @@
 `sudo chown -R cyrusworks /cyrusworks/`;
 `git clone https://github.com/FMQA/cyrusworks.git /cyrusworks/source/`;
 
-#Configure & NGINX proxy"
-`sudo cp /cyrusworks/source/config/nginx_config /etc/nginx/sites-enabled/default`;
-
 #Stop NGINX for now so the world can't see a half configured Jenkins:
 `sudo service nginx stop`;
 
@@ -91,9 +88,6 @@ print "\nRetrying plugins that failed to download...";
 #Restart Jenkins:
 `sudo docker restart cyrusworks-jenkins`;
 
-#Start NGINX:
-`sudo nginx -t && sudo service nginx start`;
-
 #Pull cyrus-docker from github:
 `mkdir /cyrusworks/cyrus-docker`;
 `git clone https://github.com/cyrusimap/cyrus-docker.git /cyrusworks/cyrus-docker/`;
@@ -101,8 +95,11 @@ print "\nRetrying plugins that failed to download...";
 #Remove operating systems that won't be part of cyrus.works
 `cd /cyrusworks/cyrus-docker; rm -rf bottle harlequin heisenbug maipo precise rawhide santiago sid squeeze tikanga.obsolete trusty tumbleweed twentyone utopic vivid`;
 
+#Configure Jenkins:
+`docker exec -u root cyrusworks-jenkins bash -c "apt-get update -y && apt-get install -y sudo"`;
+`docker exec -u root cyrusworks-jenkins bash -c "echo \"jenkins ALL=NOPASSWD: ALL\" >> /etc/sudoers"`;
+
 my @DockerImages = split /\n/, `cd /cyrusworks/cyrus-docker/; egrep -l -i 'FROM ' * | egrep -v "*.sh|*.pl" | sort | uniq`;
-#system("cd /cyrusworks/cyrus-docker/; make all run");
 
 foreach my $DockerImage (@DockerImages)
 {
@@ -123,5 +120,11 @@ foreach my $DockerImage (@DockerImages)
 `sudo chown -R cyrusworks /cyrusworks/; `;
 `docker restart cyrusworks-jenkins`;
 
+#Configure & NGINX proxy"
+`sudo cp /cyrusworks/source/config/nginx_config /etc/nginx/sites-enabled/default`;
+
+#Start NGINX:
+`sudo nginx -t && sudo service nginx start`;
+
 print "\n\nThe admin password is : $admin_password \n";
-unless (-e "/cyrusworks/jenkins/secrets/initialAdminPassword") {print "\n Jenkins initial admin password not written to file. Check docker logs";}
+unless (-e "/cyrusworks/jenkins/secrets/initialAdminPassword") {print "\n Jenkins initial admin password not written to file. Check docker logs. The install probably failed";}
