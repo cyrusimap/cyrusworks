@@ -114,9 +114,6 @@ foreach my $DockerImage (@DockerImages)
 	#Use the Jenkins template
 	`cp /cyrusworks/source/config/jenkins_job_config.xml /cyrusworks/jenkins/jobs/master-$DockerImage/config.xml`;
 
-	#Add to 'MonitorTestEnvironments.pl' config file on host.
-	`echo $DockerImage >> /cyrusworks/source/MonitorTestEnvironments.conf`;
-
 	#Build the image:
 	system("cd /cyrusworks/cyrus-docker/; docker build -t $DockerImage - < $DockerImage`");
 
