@@ -114,6 +114,8 @@ foreach my $DockerImage (@DockerImages)
 }
 
 #Generate master job that can trigger all other builds. Github will call this:
+`mkdir -p /cyrusworks/jenkins/jobs/ci/`;
+`cp /cyrusworks/source/config/jenkins_ci_job_config.xml /cyrusworks/jenkins/jobs/ci/config.xml`;
 
 #Set file ownership & restart Jenkins:
 `sudo chown -R cyrusworks /cyrusworks/; `;
