@@ -23,7 +23,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>cyrusworks_Place_Command_Here</command>
+      <command>cd /cyrusworks/cyrus-docker/; sudo docker build -t cyrusworks_place_DockerImage_here - &lt; cyrusworks_place_DockerImage_here</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>

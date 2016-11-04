@@ -45,6 +45,7 @@ system("sudo docker run -p 127.0.0.1:8080:8080 -u $user_id -d --name=cyrusworks-
 print "\nWaiting for the password to be generated...";
 sleep 15; #It takes a few seconds for Jenkins to generate the initial admin password:
 my $admin_password=`cat /cyrusworks/jenkins/secrets/initialAdminPassword`;
+unless (-e "/cyrusworks/jenkins/secrets/initialAdminPassword") {die("\n Jenkins initial admin password not written to file. Check docker logs. The install has failed");}
 
 #Start services:
 `sudo ufw --force enable`;
@@ -106,11 +107,10 @@ foreach my $DockerImage (@DockerImages)
 	#Create a Jenkins job
 	`mkdir -p /cyrusworks/jenkins/jobs/master-$DockerImage/`;
 
-	#Use the Jenkins template
+	#Configure the Jenkins job template
 	`cp /cyrusworks/source/config/jenkins_job_config.xml /cyrusworks/jenkins/jobs/master-$DockerImage/config.xml`;
+	system("sed -i -e \"s#cyrusworks_place_DockerImage_here#$DockerImage#g\" /cyrusworks/jenkins/jobs/master-$DockerImage/config.xml");
 
-	#Build the image:
-	system("cd /cyrusworks/cyrus-docker/; docker build -t $DockerImage - < $DockerImage`");
 }
 
 #Generate master job that can trigger all other builds. Github will call this:
@@ -126,4 +126,3 @@ foreach my $DockerImage (@DockerImages)
 `sudo nginx -t && sudo service nginx start`;
 
 print "\n\nThe admin password is : $admin_password \n";
-unless (-e "/cyrusworks/jenkins/secrets/initialAdminPassword") {print "\n Jenkins initial admin password not written to file. Check docker logs. The install probably failed";}
