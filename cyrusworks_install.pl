@@ -28,6 +28,7 @@
 `su - cyrusworks -c "mkdir -p /cyrusworks/source /cyrusworks/jenkins/plugins /cyrusworks/cwPluginBackup"`;
 `sudo chown -R cyrusworks /cyrusworks/`;
 `git clone https://github.com/FMQA/cyrusworks.git /cyrusworks/source/`;
+`cd /cyrusworks/source/; git pull`;
 
 #Stop NGINX for now so the world can't see a half configured Jenkins:
 `sudo service nginx stop`;
