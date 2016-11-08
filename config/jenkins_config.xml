@@ -34,6 +34,7 @@
     <listView>
       <owner class="hudson" reference="../../.."/>
       <name>master</name>
+      <description>Tests running against Cyrus IMAP (cyrusimap.org)</description>
       <filterExecutors>false</filterExecutors>
       <filterQueue>false</filterQueue>
       <properties class="hudson.model.View$PropertyList"/>
