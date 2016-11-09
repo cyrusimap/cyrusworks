@@ -134,3 +134,10 @@ foreach my $DockerImage (@DockerImages)
 `crontab -l  | grep -i DockerRemoveOldContainers || cat <(crontab -l) <(echo "0 * * * * /cyrusworks/source/Scripts/DockerRemoveOldContainers.sh") | crontab -`;
 
 print "\n\nThe admin password is : $admin_password \n";
+print "\n-Reminder : Set the CI token \n";
+
+
+
+
+
+
