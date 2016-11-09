@@ -97,7 +97,7 @@ print "\nRetrying plugins that failed to download...";
 `git clone https://github.com/cyrusimap/cyrus-docker.git /cyrusworks/cyrus-docker/`;
 
 #Remove operating systems that won't be part of cyrus.works
-`cd /cyrusworks/cyrus-docker; rm -rf bottle harlequin heisenbug precise rawhide santiago sid squeeze tikanga.obsolete tumbleweed twentyone utopic vivid`;
+`cd /cyrusworks/cyrus-docker; rm -rf bottle harlequin heisenbug precise rawhide santiago squeeze tikanga.obsolete tumbleweed twentyone utopic vivid`;
 
 #Configure Jenkins:
 system("docker exec -u root cyrusworks-jenkins bash -c /cyrusworks/scripts/SetupJenkins.sh");
