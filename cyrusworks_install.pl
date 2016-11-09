@@ -25,12 +25,11 @@
 #Create & setup new user 'cyrusworks'
 `sudo useradd -s /bin/bash -m -d /cyrusworks cyrusworks`;
 `sudo echo "cyrusworks ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers`;
-`su - cyrusworks -c "mkdir -p /cyrusworks/source /cyrusworks/jenkins/plugins /cyrusworks/cwPluginBackup"`;
+`su - cyrusworks -c "mkdir -p /cyrusworks/source /cyrusworks/jenkins/plugins /cyrusworks/cwPluginBackup /cyrusworks/www"`;
 `sudo chown -R cyrusworks /cyrusworks/`;
 `git clone https://github.com/FMQA/cyrusworks.git /cyrusworks/source/`;
 `git -C /cyrusworks/source/ pull`;
 `git -C /cyrusworks/cyrus-docker/ pull`;
-
 
 #Stop NGINX for now so the world can't see a half configured Jenkins:
 `sudo service nginx stop`;
@@ -81,6 +80,7 @@ print "\nRetrying plugins that failed to download...";
 
 #Copy the Jenkins config.xml in to place:
 `cp /cyrusworks/source/config/jenkins_config.xml /cyrusworks/jenkins/config.xml`;
+`cp /cyrusworks/source/config/502.html /cyrusworks/www/index.html`;
 
 #Copy the theme in to place:
 `sudo cp /cyrusworks/source/config/org.codefirst.SimpleThemeDecorator.xml /cyrusworks/jenkins/`;

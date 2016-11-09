@@ -2,7 +2,11 @@ server {
 
     listen 80;
     server_name cyrus.works;
+    error_page 502 /index.html;
+    location = /index.html {
+    root  /cyrusworks/www;
 
+  }
     location / {
 
       proxy_set_header        Host $host:$server_port;
