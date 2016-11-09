@@ -130,4 +130,7 @@ foreach my $DockerImage (@DockerImages)
 #Start NGINX:
 `sudo nginx -t && sudo service nginx start`;
 
+#If a Docker cleanup crontab doesn't already exist, install one. This will remove old docker containers once per hour: 
+`crontab -l  | grep -i DockerRemoveOldContainers || cat <(crontab -l) <(echo "0 * * * * /cyrusworks/source/Scripts/DockerRemoveOldContainers.sh") | crontab -`;
+
 print "\n\nThe admin password is : $admin_password \n";
