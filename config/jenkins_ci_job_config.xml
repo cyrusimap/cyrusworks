@@ -22,6 +22,9 @@
   <triggers/>
   <concurrentBuild>false</concurrentBuild>
   <builders>
+    <hudson.tasks.Shell>
+      <command>git -C /cyrusworks/cyrus-docker/ pull</command>
+    </hudson.tasks.Shell>
     <hudson.plugins.parameterizedtrigger.TriggerBuilder plugin="parameterized-trigger@2.32">
       <configs>
         <hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig>
