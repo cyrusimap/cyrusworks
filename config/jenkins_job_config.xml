@@ -23,7 +23,11 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>cd /cyrusworks/cyrus-docker/; sudo docker build -t cyrusworks_place_DockerImage_here - &lt; cyrusworks_place_DockerImage_here</command>
+      <command>cd /cyrusworks/cyrus-docker/; 
+git checkout cyrusworks_place_DockerImage_here
+RANDOM_STRING=$(date "+%y-%m-%d-%H:%M:%S")
+sed -i "s#CyrusWorksCacheInvalidationString#$RANDOM_STRING#g" ./cyrusworks_place_DockerImage_here
+sudo docker build -t cyrusworks_place_DockerImage_here - &lt; cyrusworks_place_DockerImage_here</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
