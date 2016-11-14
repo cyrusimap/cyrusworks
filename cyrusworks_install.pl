@@ -17,6 +17,7 @@
 
 #Install everything we need:
 `sudo apt-get install -y nginx ufw fail2ban sudo curl unattended-upgrades wget ntp make squid3`;
+`service squid3 stop`;
 
 #Configure ufw
 `sudo ufw allow 22`; #Allow SSH access
