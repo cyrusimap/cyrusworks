@@ -28,7 +28,7 @@
 `sudo echo "cyrusworks ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers`;
 `su - cyrusworks -c "mkdir -p /cyrusworks/source /cyrusworks/jenkins/plugins /cyrusworks/cwPluginBackup /cyrusworks/www"`;
 `sudo chown -R cyrusworks /cyrusworks/`;
-`git clone https://github.com/FMQA/cyrusworks.git /cyrusworks/source/`;
+#`git clone https://github.com/FMQA/cyrusworks.git /cyrusworks/source/`; #Source code will already be on FastMail servers
 `git -C /cyrusworks/source/ pull`;
 `git -C /cyrusworks/cyrus-docker/ pull`;
 
