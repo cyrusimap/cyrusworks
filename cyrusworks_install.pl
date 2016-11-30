@@ -138,5 +138,5 @@ system("sed -i -e \"s#cyrus_works_place_github_token_here#$ci_token#g\" /cyruswo
 `sudo nginx -t && sudo service nginx start`;
 
 #If a Docker cleanup crontab doesn't already exist, install one. This will remove old docker containers once per hour: 
-#`crontab -l  | grep -i DockerRemoveOldContainers || cat <(crontab -l) <(echo "0 * * * * /cyrusworks/source/Scripts/DockerRemoveOldContainers.sh") | crontab -`;
+`/cyrusworks/source/Scripts/InstallCrontab.sh`;
 print "\n\nThe admin password is : $admin_password \n";
