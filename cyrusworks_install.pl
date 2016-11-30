@@ -121,6 +121,12 @@ foreach my $DockerImage (@DockerImages)
 `mkdir -p /cyrusworks/jenkins/jobs/ci/`;
 `cp /cyrusworks/source/config/jenkins_ci_job_config.xml /cyrusworks/jenkins/jobs/ci/config.xml`;
 
+#Set the CI token:
+open(FILE, '/cyrusworks/github_token ') or die "Can't read file github ci token\n";  
+my $ci_token = <FILE>; 
+close (FILE);  
+system("sed -i -e \"s#cyrus_works_place_github_token_here#$ci_token#g\" /cyrusworks/jenkins/jobs/ci/config.xml");
+
 #Set file ownership & restart Jenkins:
 `sudo chown -R cyrusworks /cyrusworks/; `;
 `docker restart cyrusworks-jenkins`;
@@ -132,13 +138,5 @@ foreach my $DockerImage (@DockerImages)
 `sudo nginx -t && sudo service nginx start`;
 
 #If a Docker cleanup crontab doesn't already exist, install one. This will remove old docker containers once per hour: 
-`crontab -l  | grep -i DockerRemoveOldContainers || cat <(crontab -l) <(echo "0 * * * * /cyrusworks/source/Scripts/DockerRemoveOldContainers.sh") | crontab -`;
-
+#`crontab -l  | grep -i DockerRemoveOldContainers || cat <(crontab -l) <(echo "0 * * * * /cyrusworks/source/Scripts/DockerRemoveOldContainers.sh") | crontab -`;
 print "\n\nThe admin password is : $admin_password \n";
-print "\n-Reminder : Set the CI token \n";
-
-
-
-
-
-

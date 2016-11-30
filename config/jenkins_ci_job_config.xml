@@ -19,6 +19,7 @@
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <authToken>cyrus_works_place_github_token_here</authToken>
   <triggers/>
   <concurrentBuild>false</concurrentBuild>
   <builders>
