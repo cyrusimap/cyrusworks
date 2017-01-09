@@ -27,9 +27,10 @@
 git checkout cyrusworks_place_DockerImage_here
 RANDOM_STRING=$(date "+%y-%m-%d-%H:%M:%S")
 WEEK_STRING=$(date "+%y-%V")
-sed -i "s#CyrusWorksWeeklyInvalidationString#$WEEK_STRING#g" ./cyrusworks_place_DockerImage_here
-sed -i "s#CyrusWorksCacheInvalidationString#$RANDOM_STRING#g" ./cyrusworks_place_DockerImage_here
-sudo docker build -t cyrusworks_place_DockerImage_here - &lt; cyrusworks_place_DockerImage_here
+cp ./cyrusworks_place_DockerImage_here ./cyrusworks_place_DockerImage_here.tmp
+sed -i "s#CyrusWorksWeeklyInvalidationString#$WEEK_STRING#g" ./cyrusworks_place_DockerImage_here.tmp
+sed -i "s#CyrusWorksCacheInvalidationString#$RANDOM_STRING#g" ./cyrusworks_place_DockerImage_here.tmp
+sudo docker build -t cyrusworks_place_DockerImage_here - &lt; cyrusworks_place_DockerImage_here.tmp
 sudo docker run -t cyrusworks_place_DockerImage_here:latest</command>
     </hudson.tasks.Shell>
   </builders>
