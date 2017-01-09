@@ -26,9 +26,11 @@
       <command>cd /cyrusworks/cyrus-docker/; 
 git checkout cyrusworks_place_DockerImage_here
 RANDOM_STRING=$(date "+%y-%m-%d-%H:%M:%S")
+WEEK_STRING=$(date "+%y-%V")
+sed -i "s#CyrusWorksWeeklyInvalidationString#$WEEK_STRING#g" ./cyrusworks_place_DockerImage_here
 sed -i "s#CyrusWorksCacheInvalidationString#$RANDOM_STRING#g" ./cyrusworks_place_DockerImage_here
 sudo docker build -t cyrusworks_place_DockerImage_here - &lt; cyrusworks_place_DockerImage_here
-sudo docker run -it cyrusworks_place_DockerImage_here:latest</command>
+sudo docker run -t cyrusworks_place_DockerImage_here:latest</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
