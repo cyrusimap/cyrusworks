@@ -29,7 +29,7 @@ WEEK_STRING=$(date "+%y-%V")
 cp ./cyrusworks_place_DockerImage_here ./cyrusworks_place_DockerImage_here.tmp
 sed -i "s#CyrusWorksWeeklyInvalidationString#$WEEK_STRING#g" ./cyrusworks_place_DockerImage_here.tmp
 sudo docker build -t cyrusworks_place_DockerImage_here - &lt; cyrusworks_place_DockerImage_here.tmp
-sudo docker run -t cyrusworks_place_DockerImage_here:latest</command>
+sudo docker run -t -v /cyrusworks/BuildLogs/BUILD_${BUILD_NUMBER}:/jenkins/ cyrusworks_place_DockerImage_here:build_${BUILD_NUMBER}</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
