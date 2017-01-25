@@ -26,7 +26,7 @@
 #Create & setup new user 'cyrusworks'
 `sudo useradd -s /bin/bash -m -d /cyrusworks cyrusworks`;
 `sudo echo "cyrusworks ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers`;
-`su - cyrusworks -c "mkdir -p /cyrusworks/source /cyrusworks/jenkins/plugins /cyrusworks/BuildLogs/ /cyrusworks/cwPluginBackup /cyrusworks/www"`;
+`su - cyrusworks -c "mkdir -p /cyrusworks/source /cyrusworks/jenkins/plugins /cyrusworks/BuildLogs /cyrusworks/cwPluginBackup /cyrusworks/www"`;
 `sudo chown -R cyrusworks /cyrusworks/`;
 #`git clone https://github.com/FMQA/cyrusworks.git /cyrusworks/source/`; #Source code will already be on FastMail servers
 `git -C /cyrusworks/source/ pull`;
