@@ -42,7 +42,7 @@
 #Start the docker container:
 chomp($user_id = `id -u cyrusworks`);
 print "\nDocker images : `docker ps -a `";
-system("sudo docker run -p 127.0.0.1:8080:8080 -u $user_id -d --name=cyrusworks-jenkins -v /cyrusworks/cyrus-docker/:/cyrusworks/cyrus-docker/ -v /cyrusworks/jenkins/:/var/jenkins_home/ -v /cyrusworks/source/Scripts/:/cyrusworks/scripts/ -v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/docker:/usr/bin/docker -v /cyrusworks/jenkins/:/var/jenkins_home/ jenkins");
+system("sudo docker run -p 127.0.0.1:8080:8080 -u $user_id -d --name=cyrusworks-jenkins -v /cyrusworks/cyrus-docker/:/cyrusworks/cyrus-docker/ -v CyrusWorksLogs:/CyrusWorksLogs/ -v /cyrusworks/jenkins/:/var/jenkins_home/ -v /cyrusworks/source/Scripts/:/cyrusworks/scripts/ -v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/docker:/usr/bin/docker -v /cyrusworks/jenkins/:/var/jenkins_home/ jenkins");
 
 #Get the initial randomly generated password:
 print "\nWaiting for the password to be generated...";
