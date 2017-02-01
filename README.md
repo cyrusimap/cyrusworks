@@ -1,2 +1,2 @@
 # cyrusworks
-Scripts used to build www.cyrus.works
+Scripts used to build https://www.cyrus.works
