@@ -1,7 +1,7 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project>
   <actions/>
-  <description></description>
+  <description/>
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@1.9.0">
@@ -11,7 +11,7 @@
       <throttleEnabled>false</throttleEnabled>
       <throttleOption>project</throttleOption>
       <limitOneJobWithMatchingParams>false</limitOneJobWithMatchingParams>
-      <paramsToUseForLimit></paramsToUseForLimit>
+      <paramsToUseForLimit/>
     </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
   </properties>
   <scm class="hudson.scm.NullSCM"/>
@@ -31,7 +31,7 @@ sudo mkdir -p /CyrusWorksLogs/${JOB_NAME}-build${BUILD_NUMBER}/
 sed -i "s#CyrusWorksWeeklyInvalidationString#$WEEK_STRING#g" ./cyrusworks_place_DockerImage_here.tmp
 sudo docker build -t cyrusworks_place_DockerImage_here:build${BUILD_NUMBER} - &lt; cyrusworks_place_DockerImage_here.tmp
 sudo docker run -t -v /CyrusWorksLogs/${JOB_NAME}-build${BUILD_NUMBER}/:/CyrusWorksLogs/ cyrusworks_place_DockerImage_here:build${BUILD_NUMBER}
-sudo tar -zcvf /cyrusworks/jenkins/workspace/cyrusworks_place_DockerImage_here/build${BUILD_NUMBER}.tar.gz /cyrusworks/BuildLogs/${JOB_NAME}-build${BUILD_NUMBER}/</command>
+sudo tar -zcvf ~jenkins/workspace/master-cyrusworks_place_DockerImage_here/build${BUILD_NUMBER}.tar.gz /CyrusWorksLogs/${JOB_NAME}-build${BUILD_NUMBER}/</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
