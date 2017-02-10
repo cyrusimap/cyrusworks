@@ -23,17 +23,35 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>cd /cyrusworks/cyrus-docker/; 
-git checkout cyrusworks_place_DockerImage_here
+      <command>cd /cyrusworks/cyrus-docker/
+
+git checkout cyrusworks_place_DockerImage_here;
+
 WEEK_STRING=$(date "+%y-%V")
+
 cp ./cyrusworks_place_DockerImage_here ./cyrusworks_place_DockerImage_here.tmp
+
 sudo mkdir -p /CyrusWorksLogs/${JOB_NAME}-build${BUILD_NUMBER}/
+
+sudo chmod 777 /CyrusWorksLogs/${JOB_NAME}-build${BUILD_NUMBER}/
+
 sed -i "s#CyrusWorksWeeklyInvalidationString#$WEEK_STRING#g" ./cyrusworks_place_DockerImage_here.tmp
+
 sudo docker build -t cyrusworks_place_DockerImage_here:build${BUILD_NUMBER} - &lt; cyrusworks_place_DockerImage_here.tmp
-sudo docker run -t -v /CyrusWorksLogs/${JOB_NAME}-build${BUILD_NUMBER}/:/CyrusWorksLogs/ cyrusworks_place_DockerImage_here:build${BUILD_NUMBER}
-sudo tar -zcvf ~jenkins/workspace/master-cyrusworks_place_DockerImage_here/build${BUILD_NUMBER}.tar.gz /CyrusWorksLogs/${JOB_NAME}-build${BUILD_NUMBER}/</command>
+
+sudo docker run -e CYRUSWORKS_BUILD="${JOB_NAME}-build${BUILD_NUMBER}" -h ${JOB_NAME}-build${BUILD_NUMBER} --volumes-from cyrusworks-jenkins $CYRUSWORKS_BUILD cyrusworks_place_DockerImage_here:build${BUILD_NUMBER}
+
+sudo tar -zcvf ~jenkins/workspace/master-cyrusworks_place_DockerImage_here/build${BUILD_NUMBER}.tar.gz /CyrusWorksLogs/${JOB_NAME}-build${BUILD_NUMBER}/
+
+#rm -rf /CyrusWorksLogs/${JOB_NAME}-build${BUILD_NUMBER}/</command>
     </hudson.tasks.Shell>
   </builders>
-  <publishers/>
+  <publishers>
+    <hudson.tasks.Mailer plugin="mailer@1.19">
+      <recipients>jenkins@cyrus.works</recipients>
+      <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+  </publishers>
   <buildWrappers/>
 </project>
