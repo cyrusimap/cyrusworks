@@ -43,10 +43,19 @@ sudo docker run -e CYRUSWORKS_BUILD="${JOB_NAME}-build${BUILD_NUMBER}" -h ${JOB_
 
 sudo tar -zcvf ~jenkins/workspace/master-cyrusworks_place_DockerImage_here/build${BUILD_NUMBER}.tar.gz /CyrusWorksLogs/${JOB_NAME}-build${BUILD_NUMBER}/
 
-#rm -rf /CyrusWorksLogs/${JOB_NAME}-build${BUILD_NUMBER}/</command>
+echo "Cassandane logs : https://cyrus.works/job/cyrusworks_place_DockerImage_here/ws/${JOB_NAME}-build${BUILD_NUMBER}.tar.gz"
+
+</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
+    <hudson.plugins.logparser.LogParserPublisher plugin="log-parser@2.0">
+      <unstableOnWarning>false</unstableOnWarning>
+      <failBuildOnError>true</failBuildOnError>
+      <showGraphs>false</showGraphs>
+      <parsingRulesPath>/cyrusworks/scripts/cyrusworksrules</parsingRulesPath>
+      <useProjectRule>false</useProjectRule>
+    </hudson.plugins.logparser.LogParserPublisher>
     <hudson.tasks.Mailer plugin="mailer@1.19">
       <recipients>jenkins@cyrus.works</recipients>
       <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
