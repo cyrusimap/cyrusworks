@@ -43,7 +43,7 @@ sudo docker run -e CYRUSWORKS_BUILD="${JOB_NAME}-build${BUILD_NUMBER}" -h ${JOB_
 
 sudo tar -zcf ~jenkins/workspace/master-cyrusworks_place_DockerImage_here/build${BUILD_NUMBER}.tar.gz /CyrusWorksLogs/${JOB_NAME}-build${BUILD_NUMBER}/
 
-echo "Cassandane logs : https://cyrus.works/job/cyrusworks_place_DockerImage_here/ws/build${BUILD_NUMBER}.tar.gz"
+echo "Cassandane logs : https://cyrus.works/job/master-cyrusworks_place_DockerImage_here/ws/build${BUILD_NUMBER}.tar.gz"
 
 </command>
     </hudson.tasks.Shell>
