@@ -51,7 +51,11 @@ sudo docker run -e CYRUSWORKS_BUILD="${JOB_NAME}-build${BUILD_NUMBER}" -h ${JOB_
 
 sudo tar --warning=no-file-ignored -zcf ~jenkins/workspace/master-cyrusworks_place_DockerImage_here/build${BUILD_NUMBER}.tar.gz /CyrusWorksLogs/${JOB_NAME}-build${BUILD_NUMBER}/
 
+
 echo "Cassandane logs : https://cyrus.works/job/master-cyrusworks_place_DockerImage_here/ws/build${BUILD_NUMBER}.tar.gz"
+
+#Remove temp log files as these have been moved to the /ws/ dir as a .tar:
+sudo rm -rf /CyrusWorksLogs/${JOB_NAME}-build${BUILD_NUMBER}/
 
 </command>
     </hudson.tasks.Shell>
