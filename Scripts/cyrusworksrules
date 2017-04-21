@@ -1,3 +1,4 @@
 error /\!\!\!FAILURES\!\!\!/
 error /Test was not successful/
 error /Unable to find image/
+error '...FAILED'
