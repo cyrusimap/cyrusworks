@@ -48,7 +48,8 @@ sudo chmod 777 /CyrusWorksLogs/${JOB_NAME}-build${BUILD_NUMBER}/
 sed -i "s#CyrusWorksWeeklyInvalidationString#$WEEK_STRING#g" ./jessie.tmp</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
-      <command>sudo docker build -t jessie:build${BUILD_NUMBER} - &lt; jessie.tmp
+      <command>cd /cyrusworks/cyrus-docker/
+sudo docker build -t jessie:build${BUILD_NUMBER} - &lt; jessie.tmp
 </command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
