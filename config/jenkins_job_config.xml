@@ -7,9 +7,9 @@
     <jenkins.model.BuildDiscarderProperty>
       <strategy class="hudson.tasks.LogRotator">
         <daysToKeep>-1</daysToKeep>
-        <numToKeep>10</numToKeep>
-        <artifactDaysToKeep>10</artifactDaysToKeep>
-        <artifactNumToKeep>10</artifactNumToKeep>
+        <numToKeep>15</numToKeep>
+        <artifactDaysToKeep>15</artifactDaysToKeep>
+        <artifactNumToKeep>15</artifactNumToKeep>
       </strategy>
     </jenkins.model.BuildDiscarderProperty>
     <hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@1.9.0">
@@ -31,33 +31,35 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>cd /cyrusworks/cyrus-docker/
+      <command>echo "cache invalidate 1"
 
-git checkout cyrusworks_place_DockerImage_here;
+cd /cyrusworks/cyrus-docker/
+
+git checkout jessie;
 
 WEEK_STRING=$(date "+%y-%V")
 
-cp ./cyrusworks_place_DockerImage_here ./cyrusworks_place_DockerImage_here.tmp
+cp ./jessie ./jessie.tmp
 
 sudo mkdir -p /CyrusWorksLogs/${JOB_NAME}-build${BUILD_NUMBER}/
 
 sudo chmod 777 /CyrusWorksLogs/${JOB_NAME}-build${BUILD_NUMBER}/
 
-sed -i "s#CyrusWorksWeeklyInvalidationString#$WEEK_STRING#g" ./cyrusworks_place_DockerImage_here.tmp
-
-sudo docker build -t cyrusworks_place_DockerImage_here:build${BUILD_NUMBER} - &lt; cyrusworks_place_DockerImage_here.tmp
-
-sudo docker run -e CYRUSWORKS_BUILD="${JOB_NAME}-build${BUILD_NUMBER}" -h ${JOB_NAME}-build${BUILD_NUMBER} --volumes-from cyrusworks-jenkins $CYRUSWORKS_BUILD cyrusworks_place_DockerImage_here:build${BUILD_NUMBER}
-
-sudo tar --warning=no-file-ignored -zcf ~jenkins/workspace/master-cyrusworks_place_DockerImage_here/build${BUILD_NUMBER}.tar.gz /CyrusWorksLogs/${JOB_NAME}-build${BUILD_NUMBER}/
-
-
-echo "Cassandane logs : https://cyrus.works/job/master-cyrusworks_place_DockerImage_here/ws/build${BUILD_NUMBER}.tar.gz"
-
-#Remove temp log files as these have been moved to the /ws/ dir as a .tar:
-sudo rm -rf /CyrusWorksLogs/${JOB_NAME}-build${BUILD_NUMBER}/
-
+sed -i "s#CyrusWorksWeeklyInvalidationString#$WEEK_STRING#g" ./jessie.tmp</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>sudo docker build -t jessie:build${BUILD_NUMBER} - &lt; jessie.tmp
 </command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>
+sudo docker run -e CYRUSWORKS_BUILD="${JOB_NAME}-build${BUILD_NUMBER}" -h ${JOB_NAME}-build${BUILD_NUMBER} --volumes-from cyrusworks-jenkins $CYRUSWORKS_BUILD jessie:build${BUILD_NUMBER}
+
+sudo tar --warning=no-file-ignored -zcf ~jenkins/workspace/cyrusworks_place_DockerImage_here/build${BUILD_NUMBER}.tar.gz /CyrusWorksLogs/${JOB_NAME}-build${BUILD_NUMBER}/
+
+echo "Cassandane logs : https://cyrus.works/job/cyrusworks_place_DockerImage_here/ws/build${BUILD_NUMBER}.tar.gz"
+
+sudo rm -rf /CyrusWorksLogs/${JOB_NAME}-build${BUILD_NUMBER}/</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
@@ -68,7 +70,7 @@ sudo rm -rf /CyrusWorksLogs/${JOB_NAME}-build${BUILD_NUMBER}/
       <parsingRulesPath>/cyrusworks/scripts/cyrusworksrules</parsingRulesPath>
       <useProjectRule>false</useProjectRule>
     </hudson.plugins.logparser.LogParserPublisher>
-    <hudson.tasks.Mailer plugin="mailer@1.19">
+    <hudson.tasks.Mailer plugin="mailer@1.20">
       <recipients>jenkins@cyrus.works</recipients>
       <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
       <sendToIndividuals>false</sendToIndividuals>
