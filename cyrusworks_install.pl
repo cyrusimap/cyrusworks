@@ -22,6 +22,7 @@
 #Configure ufw
 `sudo ufw allow 22`; #Allow SSH access
 `sudo ufw allow 80`; #Allow http access
+`sudo ufw allow 443`; #Allow https access
 
 #Create & setup new user 'cyrusworks'
 `sudo useradd -s /bin/bash -m -d /cyrusworks cyrusworks`;
