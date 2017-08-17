@@ -2,3 +2,5 @@ error /\!\!\!FAILURES\!\!\!/
 error /Test was not successful/
 error /Unable to find image/
 error '...FAILED'
+error /Could not run Cassandane/
+error /make FAILED/
